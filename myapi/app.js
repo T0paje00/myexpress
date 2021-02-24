@@ -7,6 +7,9 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var bookRouter = require('./routes/book');
 var courseRouter = require('./routes/course');
+var userRouter = require('./routes/user');
+var loginRouter = require('./routes/login');
+const basicAuth = require('express-basic-auth');
 
 var app = express();
 
@@ -20,9 +23,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//app.use(basicAuth({users: { 'admin': '1234' }}))
 app.use('/', indexRouter);
 app.use('/book', bookRouter);
 app.use('/course', courseRouter);
+app.use('/user', userRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
